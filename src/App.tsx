@@ -1,13 +1,12 @@
-
-
+import Typography from "@mui/material/Typography"
 
 function App() {
   
 
   return (
-    <>
-    <h1>Record Manager</h1>
-    </>
+    
+    <Typography variant="h3">Record Manager</Typography>
+    
   )
 }
 
