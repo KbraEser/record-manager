@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, type FieldErrors } from 'react-hook-form'
 import { Checkbox, FormControlLabel, Grid, Paper, Stack } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import EditIcon from '@mui/icons-material/Edit'
@@ -11,6 +11,7 @@ import { selectSelectedRecord } from '../store/selectors'
 import { addRecord, clearSelection, updateRecord } from '../store/recordSlice'
 import { CODE_RULES, DATE_RULES, NAME_RULES } from '../validation'
 import { isValidDate } from '../../../common/utils/date'
+import { logger } from '../../../common/utils/logger'
 import type { RecordFormValues } from '../types'
 
 const EMPTY_FORM: RecordFormValues = {
@@ -35,22 +36,36 @@ export function RecordForm() {
     reset({ code, name, assignDate, isUpdatable })
   }, [selectedRecord, reset])
 
-  const handleClean = () => {
+  // Empties the inputs and leaves edit mode, so the button shows "Save" again
+  const resetForm = () => {
     reset(EMPTY_FORM)
     dispatch(clearSelection())
   }
 
+  const handleClean = () => {
+    resetForm()
+    logger.info('Form cleaned')
+  }
+
+  // Runs only when every field is valid
   const onSubmit = (values: RecordFormValues) => {
     if (selectedRecord) {
       dispatch(updateRecord({ id: selectedRecord.id, ...values }))
+      logger.info('Record updated', values)
     } else {
       dispatch(addRecord(values))
+      logger.info('Record added', values)
     }
-    handleClean()
+    resetForm()
+  }
+
+  // Runs when Save/Update is clicked but some fields are invalid
+  const onInvalid = (errors: FieldErrors<RecordFormValues>) => {
+    logger.warn('Form validation failed', Object.keys(errors))
   }
 
   return (
-    <Paper component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ p: 3 }}>
+    <Paper component="form" onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate sx={{ p: 3 }}>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <FormInput
