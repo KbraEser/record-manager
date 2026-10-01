@@ -1,5 +1,6 @@
 import { Container, Stack, Typography } from '@mui/material'
 import { RecordForm } from './features/records/components/RecordForm'
+import { RecordGrid } from './features/records/components/RecordGrid'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
           Record Manager
         </Typography>
         <RecordForm />
+        <RecordGrid />
       </Stack>
     </Container>
   )
