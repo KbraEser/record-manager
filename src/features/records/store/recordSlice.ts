@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RecordFormValues, RecordItem } from '../types/record'
+import type { RecordFormValues, RecordItem } from '../types'
 
 interface RecordsState {
   items: RecordItem[]
