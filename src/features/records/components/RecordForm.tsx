@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { selectSelectedRecord } from '../store/selectors'
 import { addRecord, clearSelection, updateRecord } from '../store/recordSlice'
 import { CODE_RULES, DATE_RULES, NAME_RULES } from '../validation'
-import { isValidDate } from '../../../common/utils/date'
+import { formatDateInput, isValidDate } from '../../../common/utils/date'
 import { logger } from '../../../common/utils/logger'
 import type { RecordFormValues } from '../types'
 
@@ -100,6 +100,7 @@ export function RecordForm() {
             tips={DATE_RULES.tips}
             pattern={{ value: DATE_RULES.pattern, message: DATE_RULES.tips }}
             validate={isValidDate}
+            formatValue={formatDateInput}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
