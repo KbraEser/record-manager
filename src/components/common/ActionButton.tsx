@@ -3,7 +3,7 @@ import type { ReactNode } from "react"
 
 interface ActionButtonProps {
     label: string
-    onClick: () => void
+    onClick?: () => void
     tips?: string
     icon?: ReactNode
     color?:ButtonProps['color']
