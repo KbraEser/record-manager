@@ -1,6 +1,6 @@
 import { TextField, Tooltip } from '@mui/material'
-import { useController, type Control, type FieldValues, type Path } from 'react-hook-form'
-
+import { useController, type Control, type FieldValues, type Path, type ValidateResult } from 'react-hook-form'
+  
 interface FormInputProps<T extends FieldValues> {
   name: Path<T>
   control: Control<T>
@@ -11,6 +11,7 @@ interface FormInputProps<T extends FieldValues> {
   required?: boolean
   disabled?: boolean
   pattern?: { value: RegExp; message: string }
+  validate?: (value: string) => ValidateResult
 }
 
 export function FormInput<T extends FieldValues>({
@@ -23,6 +24,7 @@ export function FormInput<T extends FieldValues>({
   required = false,
   disabled = false,
   pattern,
+  validate
 }: FormInputProps<T>) {
   const { field, fieldState } = useController<T>({
     name,
@@ -31,6 +33,7 @@ export function FormInput<T extends FieldValues>({
       required: required && `${label} is required`,
       maxLength: maxLength && { value: maxLength, message: `Max ${maxLength} characters` },
       pattern,
+      validate:validate && ((value) => validate(String(value))),
     },
   })
 

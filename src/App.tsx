@@ -1,10 +1,16 @@
-import Typography from "@mui/material/Typography"
+import { Container, Stack, Typography } from '@mui/material'
+import { RecordForm } from './components/RecordForm'
 
 function App() {
   return (
-    
-    <Typography variant="h3">Record Manager</Typography>
-    
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Stack spacing={3}>
+        <Typography variant="h5" component="h1" sx={{ fontWeight: 700 }}>
+          Record Manager
+        </Typography>
+        <RecordForm />
+      </Stack>
+    </Container>
   )
 }
 
