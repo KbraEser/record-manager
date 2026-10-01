@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { selectRecords } from '../store/selectors'
 import { selectRecord } from '../store/recordSlice'
 import { parseDate } from '../../../common/utils/date'
+import { logger } from '../../../common/utils/logger'
 import type { RecordItem } from '../types'
 
 // Dates are stored as "DD/MM/YYYY" text, so compare them as real dates when sorting
@@ -26,6 +27,9 @@ export function RecordGrid() {
   const handleRowClick = (params: GridRowParams<RecordItem>) => {
     if (params.row.isUpdatable) {
       dispatch(selectRecord(params.row.id))
+      logger.info('Record selected', params.row)
+    } else {
+      logger.warn('Record is not updatable and cannot be selected', params.row)
     }
   }
 
