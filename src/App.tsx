@@ -1,5 +1,5 @@
 import { Container, Stack, Typography } from '@mui/material'
-import { RecordForm } from './components/RecordForm'
+import { RecordForm } from './features/records/components/RecordForm'
 
 function App() {
   return (

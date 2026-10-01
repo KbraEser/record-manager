@@ -1,4 +1,4 @@
-import type { RootState } from '.'
+import type { RootState } from '../../../store'
 
 export const selectRecords = (state: RootState) => state.records.items
 
