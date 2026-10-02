@@ -30,6 +30,7 @@ Built as an interview test case.
 | Material UI | 9.4 | UI components and icons |
 | MUI X Data Grid | 9.14 | Data grid |
 | Vite | 8.3 | Dev server and build tool |
+| Docker + nginx | 29 / stable | Containerized production build |
 | Vitest + React Testing Library | 5.0 / 16.3 | Unit and component tests |
 | ESLint | 10.11 | Static code analysis |
 
@@ -45,6 +46,19 @@ npm run dev
 ```
 
 Then open http://localhost:5173.
+
+## Run with Docker
+
+No Node.js installation is needed, only Docker.
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:8080. Stop it with `docker compose down`.
+
+The `Dockerfile` builds the app with Node.js and serves the result with nginx,
+so the final image contains only the static files.
 
 ## Scripts
 
